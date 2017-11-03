@@ -1,5 +1,6 @@
 import * as http from "http";
 import * as querystring from "querystring";
+import * as fs from "fs";
 
 export class RequestHandler
 {
@@ -7,22 +8,23 @@ export class RequestHandler
     public start(response:http.ServerResponse, postData:string): void
     {
         console.log("Request handler 'start' was called.");
-        var body:string = '<html>'+
-        '<head>'+
-        '<meta http-equiv="Content-Type" content="text/html; '+
-        'charset=UTF-8" />'+
-        '</head>'+
-        '<body>'+
-        '<form action="/upload" method="post">'+
-        '<textarea name="text" rows="20" cols="60"></textarea>'+
-        '<input type="submit" value="Submit text" />'+
-        '</form>'+
-        '</body>'+
-        '</html>';
 
-        response.writeHead(200, {"Content-Type" : "text/html"});
-        response.write(body);
-        response.end();
+        var path:string = "./view/start.html";
+        fs.exists(path, (exists) => {
+
+            if (exists){
+                fs.readFile(path, "utf8", (err, data) => {
+                    response.writeHead(200, {"Content-Type" : "text/html"});
+                    response.write(data);
+                    response.end();
+                }); 
+            }
+            else {
+                response.writeHead(404, {"Content-Type" : "text/plain"});
+                response.write("404 File not found.");
+                response.end();
+            }
+        }); 
     }
 
     public upload(response:http.ServerResponse, postData:string): void
