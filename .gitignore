@@ -58,3 +58,7 @@ typings/
 .env
 
 *.map
+step2_typescript/server.js
+step2_typescript/index.js
+step2_typescript/requestHandlers.js
+step2_typescript/router.js
