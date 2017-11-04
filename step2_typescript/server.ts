@@ -3,8 +3,7 @@ import * as url from "url";
 import * as router from "./router";
 import * as handler from "./requestHandlers";
 
-export class Server
-{
+export class Server {
     // ルート情報
     private _router: router.Router;
 
@@ -13,16 +12,13 @@ export class Server
     // @param   [in]    route   ルート情報
     // @param   [in]    handler リクエストハンドラ
     // ----------------------
-    public constructor(router: router.Router)
-    {
+    public constructor(router: router.Router) {
         this._router = router;
     }
 
-    public start():void
-    {
+    public start(): void {
         // サーバーを生成してListen
-        http.createServer((request:http.IncomingMessage, response:http.ServerResponse) =>
-        {
+        http.createServer((request: http.IncomingMessage, response: http.ServerResponse) => {
             // POSTデータ
             var postData: string = "";
 
@@ -34,7 +30,7 @@ export class Server
             request.setEncoding("utf8");
 
             // POSTデータ受信イベント
-            request.addListener("data", (postDataChunk:string) =>{
+            request.addListener("data", (postDataChunk: string) => {
                 postData += postDataChunk;
             });
 
